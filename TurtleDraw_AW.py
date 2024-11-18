@@ -4,11 +4,11 @@ TEXTFILENAME = 'turtle-draw.txt'
 
 # Todo: Ask user for the file name.
 
-print('TurtleDrawLite - Part 3')
+print('Turtle Draw Python :)')
 
-turtleDrawLite = turtle.Turtle()
-turtleDrawLite.speed(10)
-turtleDrawLite.penup()
+Franek = turtle.Turtle()
+Franek.speed(10)
+Franek.penup()
 
 print('Reading a text file line by line.')
 turtleDrawTextfile = open(TEXTFILENAME, 'r')
@@ -23,13 +23,13 @@ while line:
         y = int(parts[2])
 
     
-        turtleDrawLite.color(color)
-        turtleDrawLite.goto(x,y)
+        Franek.color(color)
+        Franek.goto(x,y)
         # Todo: Calculate the distance and add it to the total distance.
-        turtleDrawLite.pendown()
+        Franek.pendown()
 
-    if (len(parts) == 1): # Assues that a single word on a line is "stop"
-        turtleDrawLite.penup()
+    if (len(parts) == 1): # Assumes that a single word on a line is "stop"
+        Franek.penup()
 
     line = turtleDrawTextfile.readline()
 
