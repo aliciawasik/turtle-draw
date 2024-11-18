@@ -1,18 +1,27 @@
 import turtle 
+import math 
+
+print('Turtle Draw Python :)') 
+
+# Todo: Ask user for file name.
+file_name = input("Please enter the name of the input file: ")
+# Print file name.
+print(f"The file name you entered is: {file_name}")
 
 TEXTFILENAME = 'turtle-draw.txt'
+turtleDrawTextfile = open(TEXTFILENAME, 'r')
+line = turtleDrawTextfile.readline()
 
-# Todo: Ask user for the file name.
+# Set up the screen.
+screen = turtle.Screen()
+screen.bgcolor("white")
+screen.setup(width=450, height=450)
 
-print('Turtle Draw Python :)')
-
+# Create turtle.
 Franek = turtle.Turtle()
 Franek.speed(10)
 Franek.penup()
 
-print('Reading a text file line by line.')
-turtleDrawTextfile = open(TEXTFILENAME, 'r')
-line = turtleDrawTextfile.readline()
 while line:
     print(line, end='')
     parts = line.split(' ')
@@ -34,8 +43,10 @@ while line:
     line = turtleDrawTextfile.readline()
 
 # Todo: Print the total near the bottom.
-turtle.done()
-turtleDrawTextfile.close()
 
 # Todo: Wait for the user to press the Enter key before closing.
+turtleDrawTextfile.close()
+input("Press Enter to exit...")
+turtle.bye()
+
 print('\nEnd')
