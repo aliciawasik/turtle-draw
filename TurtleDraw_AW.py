@@ -47,10 +47,15 @@ try:
             if line:  # Only process non-empty lines
                 parts = line.split()
 
+                if parts[0].lower() == "stop":
+                    Franek.penup()  # Lift the pen to stop drawing
+                    print("Pen lifted, no drawing.")
+                    continue  # Skip to the next line after lifting the pen
+                
                 if len(parts) < 3:
                     print(f"Invalid line format (too few values): {line}")
                     continue  # Skip this line if there are not enough values
-                
+
                 try:
                     # Parse the color (first part), and coordinates (second and third parts)
                     color = parts[0]
@@ -82,7 +87,7 @@ except Exception as e:
 
 # Todo: Wait for the user to press the Enter key before closing.
 turtleDrawTextfile.close()
-input("/Press Enter to exit...")
+input("\nPress Enter to exit...")
 turtle.bye()
 
 print('\nEnd')
