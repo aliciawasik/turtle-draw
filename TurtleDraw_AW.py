@@ -5,7 +5,7 @@ import math
 screen = turtle.Screen()
 screen.setup(width=450, height=450)
 
-# Create the turtle object.
+# Create the turtle object
 Franek = turtle.Turtle()
 Franek.speed(10)
 
@@ -43,7 +43,7 @@ def read_points_from_file(TEXTFILENAME):
                 Franek.color(colors)
                 Franek.goto(x, y)
                 Franek.pendown()
-                points.append((x, y))  # Save the point for distance calculation
+                points.append((x, y)) 
     return points
 
 # Read points from the text file
