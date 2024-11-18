@@ -12,10 +12,6 @@ Franek.speed(10)
 # Ask the user for the input file name
 file_name = input("Please enter the name of the input file: ")
 
-TEXTFILENAME = 'turtle-draw.txt'
-turtleDrawTextFile = open(TEXTFILENAME, 'r')
-line = turtleDrawTextFile.readline()
-
 # Calculate distance between two points
 def distance(p1, p2):
     return math.sqrt((p2[0] - p1[0])**2 + (p2[1] - p1[1])**2)
@@ -27,37 +23,47 @@ def total_distance(points):
     return total
 
 # Read points from file
-def read_points_from_file(TEXTFILENAME):
+def read_points_from_file(file_name):
     points = []
-    with open(TEXTFILENAME, 'r') as file:
+    with open(file_name, 'r') as file:
+        current_position = (0, 0)  # Start at the origin
+        Franek.penup()
+        Franek.goto(current_position)  # Start at (0, 0)
+
         for line in file:
             line = line.strip()
-            returnStrings = line.split()
-            if len(returnStrings) == 1:
-                Franek.penup()
-            elif len(returnStrings) == 3:
-                colors = returnStrings[0]
-                x = int(returnStrings[1])
-                y = int(returnStrings[2])
-                
-                Franek.color(colors)
+            if line.lower() == "stop":
+                Franek.penup()  # Lift the pen
+                continue  # Skip to the next line
+
+            return_strings = line.split()
+
+            if len(return_strings) == 3:
+                color = return_strings[0]
+                x = int(return_strings[1])
+                y = int(return_strings[2])
+
+                Franek.color(color)
                 Franek.goto(x, y)
                 Franek.pendown()
-                points.append((x, y)) 
-    return points
 
-# Read points from the text file
-points = read_points_from_file(TEXTFILENAME)
+                points.append((x, y))  # Store the point
+
+        return points
+
+# Read points from the input file
+points = read_points_from_file(file_name)
 
 # Calculate the total distance
 total = total_distance(points)
 print(f"Total Distance: {total:.2f}")
 
-
+# Display total distance on the screen
 Franek.penup()
-Franek.goto(200, -250)
+Franek.goto(200, -200)
 Franek.pendown()
 Franek.write(f"Total Distance: {total:.2f}", align="center", font=("Arial", 10, "normal"))
 
+# Wait for user input before closing the window
 input("Press Enter to exit...")
-turtle.bye()  
+turtle.bye()
