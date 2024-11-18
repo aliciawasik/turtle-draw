@@ -41,29 +41,35 @@ try:
         Franek.goto(current_x, current_y)  # Move Franek to the origin
         Franek.pendown()
 
+        # Process each line in the input file
         for line in file:
             line = line.strip()  # Strip whitespace from the line
             if line:  # Only process non-empty lines
                 parts = line.split()
+
+                if len(parts) < 3:
+                    print(f"Invalid line format (too few values): {line}")
+                    continue  # Skip this line if there are not enough values
                 
-                if parts[0].lower() == "stop":
-                    Franek.penup()  # Lift the pen
-                    print("Pen lifted, no drawing.")
-                else:
-                    try:
-                        x, y = int(parts[0]), int(parts[1])  # Extract x and y coordinates
-                        color = parts[2] if len(parts) > 2 else "black"  # Default to black if no color is specified
-                        
-                        Franek.color(color)  # Change the pen color
-                        distance = calculate_distance(current_x, current_y, x, y)  # Calculate the distance
-                        total_distance += distance  # Add to the total distance
-                        
-                        Franek.goto(x, y)  # Move Franek to the new position
-                        Franek.pendown()  # Start drawing again
-                        current_x, current_y = x, y  # Update current position
-                    except (ValueError, IndexError):
-                        print(f"Invalid line format: {line}")
-        
+                try:
+                    # Parse the color (first part), and coordinates (second and third parts)
+                    color = parts[0]
+                    x, y = int(parts[1]), int(parts[2])
+
+                    # Move the turtle to the new position and draw
+                    Franek.color(color)  # Set the color
+                    distance = calculate_distance(current_x, current_y, x, y)  # Calculate distance
+                    total_distance += distance  # Add to the total distance
+
+                    Franek.goto(x, y)  # Move Franek to the new position
+                    Franek.pendown()  # Start drawing again
+                    current_x, current_y = x, y  # Update current position
+
+                except ValueError as ve:
+                    print(f"Error processing line (invalid value): {line} - {ve}")
+                except IndexError as ie:
+                    print(f"Error processing line (missing data): {line} - {ie}")
+
         # Display total distance at the bottom right of the screen
         Franek.penup()
         Franek.goto(150, -150)
