@@ -1,26 +1,20 @@
-import turtle 
-import math 
+import turtle
+import math
 
-print('Turtle Draw Python :)') 
-
-# Todo: Ask user for file name.
-file_name = input("Please enter the name of the input file: ")
-# Print file name.
-print(f"The file name you entered is: {file_name}")
-
-TEXTFILENAME = 'turtle-draw.txt'
-turtleDrawTextfile = open(TEXTFILENAME, 'r')
-line = turtleDrawTextfile.readline()
-
-# Set up the screen.
+# Setup screen
 screen = turtle.Screen()
-screen.bgcolor("white")
 screen.setup(width=450, height=450)
 
-# Create turtle.
+# Create the turtle object.
 Franek = turtle.Turtle()
-Franek.speed(10)
-Franek.penup()
+Franek.speed(0)  # Maximum speed
+Franek.width(2)
+
+# Default color
+Franek.color("black")
+
+# Ask the user for the input file name
+file_name = input("Please enter the name of the input file: ")
 
 # Initialize variables
 total_distance = 0  # To accumulate the total distance traveled
@@ -28,9 +22,6 @@ total_distance = 0  # To accumulate the total distance traveled
 # Function to calculate the distance between two points
 def calculate_distance(x1, y1, x2, y2):
     return math.sqrt((x2 - x1)**2 + (y2 - y1)**2)
-
-# Read file
-line = turtleDrawTextfile.readline()
 
 # Open the input file and process its content
 try:
@@ -47,11 +38,11 @@ try:
             if line:  # Only process non-empty lines
                 parts = line.split()
 
+                # Check for 'stop' keyword
                 if parts[0].lower() == "stop":
-                    Franek.penup()  # Lift the pen to stop drawing
-                    print("Pen lifted, no drawing.")
-                    continue  # Skip to the next line after lifting the pen
-                
+                    print("Stop command encountered. Skipping drawing segment.")
+                    continue  # Skip the drawing of this segment
+
                 if len(parts) < 3:
                     print(f"Invalid line format (too few values): {line}")
                     continue  # Skip this line if there are not enough values
@@ -85,9 +76,6 @@ except FileNotFoundError:
 except Exception as e:
     print(f"An error occurred: {e}")
 
-# Todo: Wait for the user to press the Enter key before closing.
-turtleDrawTextfile.close()
-input("\nPress Enter to exit...")
-turtle.bye()
-
-print('\nEnd')
+# Wait for user to press enter before closing
+input("Press Enter to exit...")
+turtle.bye()  # Close the turtle graphics window
