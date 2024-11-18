@@ -25,11 +25,11 @@ def total_distance(points):
 # Read points from file and print the lines to the terminal
 def read_points_from_file(file_name):
     points = []
-    with open(file_name, 'r') as file:
-        current_position = (0, 0)  # Start at the origin
-        Franek.penup()
-        Franek.goto(current_position)  # Start at (0, 0)
+    current_position = (0, 0)  # Start at the origin
+    Franek.penup()
+    Franek.goto(current_position)  # Start at (0, 0)
 
+    with open(file_name, 'r') as file:
         # Read each line from the file
         for line in file:
             line = line.strip()
@@ -48,11 +48,11 @@ def read_points_from_file(file_name):
 
                 Franek.color(color)
                 Franek.goto(x, y)
-                Franek.pendown()
+                Franek.pendown()  # Start drawing
 
                 points.append((x, y))  # Store the point
 
-        return points
+    return points
 
 # Read points from the input file
 points = read_points_from_file(file_name)
